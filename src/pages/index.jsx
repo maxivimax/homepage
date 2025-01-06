@@ -150,7 +150,11 @@ function Index({ initialSettings, fallback }) {
   }
 
   return (
-    <SWRConfig value={{ fallback, fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()) }}>
+    <SWRConfig value={{
+      fallback,
+      fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()),
+      refreshInterval: 5000,
+    }}>
       <ErrorBoundary>
         <Home initialSettings={initialSettings} />
       </ErrorBoundary>
@@ -284,7 +288,7 @@ function Home({ initialSettings }) {
               className={classNames(
                 "sm:flex rounded-md bg-theme-100/20 dark:bg-white/5",
                 settings.cardBlur !== undefined &&
-                  `backdrop-blur${settings.cardBlur.length ? "-" : ""}${settings.cardBlur}`,
+                `backdrop-blur${settings.cardBlur.length ? "-" : ""}${settings.cardBlur}`,
               )}
               id="myTab"
               data-tabs-toggle="#myTabContent"
@@ -412,8 +416,8 @@ function Home({ initialSettings }) {
             "flex flex-row flex-wrap justify-between z-20",
             headerStyles[headerStyle],
             settings.cardBlur !== undefined &&
-              headerStyle === "boxed" &&
-              `backdrop-blur${settings.cardBlur.length ? "-" : ""}${settings.cardBlur}`,
+            headerStyle === "boxed" &&
+            `backdrop-blur${settings.cardBlur.length ? "-" : ""}${settings.cardBlur}`,
           )}
         >
           <div id="widgets-wrap" className={classNames("flex flex-row w-full flex-wrap justify-between gap-x-2")}>
@@ -517,7 +521,7 @@ export default function Wrapper({ initialSettings, fallback }) {
           className={classNames(
             "fixed overflow-auto w-full h-full",
             backgroundBlur &&
-              `backdrop-blur${initialSettings.background.blur.length ? "-" : ""}${initialSettings.background.blur}`,
+            `backdrop-blur${initialSettings.background.blur.length ? "-" : ""}${initialSettings.background.blur}`,
             backgroundSaturate && `backdrop-saturate-${initialSettings.background.saturate}`,
             backgroundBrightness && `backdrop-brightness-${initialSettings.background.brightness}`,
           )}
